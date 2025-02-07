@@ -1,0 +1,54 @@
+h1 {
+  background-color: #5611cc47;
+  border-radius: 5px;
+  padding: 15px 40px;
+}
+
+.new-todo {
+  display: flex;
+  margin-bottom: 80px;
+}
+
+.new-todo > div {
+  margin-left: 20px;
+}
+
+.todo-list {
+  border-collapse: collapse;
+}
+
+.todo-list > thead > tr > th {
+  background-color: #5611cc47;
+}
+
+.todo-list > tbody > tr > td {
+  text-align: center;
+}
+
+.todo-list > thead > tr > th,
+.todo-list > tbody > tr > td {
+  border: solid 1px;
+  width: 150px;
+  padding: 10px;
+}
+
+#register {
+  background-color: #5611cc47;
+  border: 1px solid #5611cc47;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+#register:hover {
+  background-color: #b300ff85;
+  box-shadow: 1px 1px 3px rgb(44, 44, 44);
+}
+
+#register:active {
+  background-color: #5611cc47;
+  box-shadow: none;
+  position: relative;
+  top: 1px;
+}
