@@ -25,29 +25,35 @@ export const getNewTodo = (): TODO => ({
  * DOMにTODO一覧を表示する
  */
 export const appendTodoList = (
-  todoList: TODO[],
+  _todoList: TODO[],
+  _filterWord: string,
   deleteTodo: (id: number) => void,
 ) => {
-  console.log("表示", todoList);
-  todoList.forEach((todo) => {
-    const nameTd = createElement("td", todo.name);
-    const namePerson = createElement("td", todo.person);
-    const nameDeadline = createElement("td", todo.deadline);
+  _todoList
+    .filter(
+      (todo) =>
+        todo.name.includes(_filterWord) ||
+        todo.person.includes(_filterWord),
+    )
+    .forEach((todo) => {
+      const nameTd = createElement("td", todo.name);
+      const namePerson = createElement("td", todo.person);
+      const nameDeadline = createElement("td", todo.deadline);
 
-    // 削除ボタン
-    const deleteButton = createElement("button", "削除");
-    deleteButton.addEventListener("click", () => deleteTodo(todo.id));
-    const deleteButtonTd = createElement("td");
-    deleteButtonTd.appendChild(deleteButton);
+      // 削除ボタン
+      const deleteButton = createElement("button", "削除");
+      deleteButton.addEventListener("click", () => deleteTodo(todo.id));
+      const deleteButtonTd = createElement("td");
+      deleteButtonTd.appendChild(deleteButton);
 
-    const tr = createElement("tr");
-    tr.appendChild(nameTd);
-    tr.appendChild(namePerson);
-    tr.appendChild(nameDeadline);
-    tr.appendChild(deleteButtonTd);
-    const tBody = getElementById("tbody");
-    tBody.appendChild(tr);
-  });
+      const tr = createElement("tr");
+      tr.appendChild(nameTd);
+      tr.appendChild(namePerson);
+      tr.appendChild(nameDeadline);
+      tr.appendChild(deleteButtonTd);
+      const tBody = getElementById("tbody");
+      tBody.appendChild(tr);
+    });
 };
 
 /**
