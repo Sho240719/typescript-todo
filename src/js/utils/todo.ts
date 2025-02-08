@@ -4,6 +4,7 @@ import { createElement, getElementById, getInputElementById } from "./dom";
  * todoの型定義
  */
 export type TODO = {
+  id: number;
   name: string;
   person: string;
   deadline: string;
@@ -14,34 +15,47 @@ export type TODO = {
  * @returns Todo
  */
 export const getNewTodo = (): TODO => ({
-    name: getInputElementById("new-todo-name").value,
-    person: getInputElementById("new-person").value,
-    deadline: getInputElementById("new-deadline").value
+  id: Date.now(),
+  name: getInputElementById("new-todo-name").value,
+  person: getInputElementById("new-person").value,
+  deadline: getInputElementById("new-deadline").value,
 });
 
 /**
  * DOMにTODO一覧を表示する
  */
-export const appendTodoList = (todoList: TODO[]) => {
+export const appendTodoList = (
+  todoList: TODO[],
+  deleteTodo: (id: number) => void,
+) => {
+  console.log("表示", todoList);
   todoList.forEach((todo) => {
-    const nameTd =  createElement("td", todo.name);
-    const namePerson =  createElement("td", todo.person);
-    const nameDeadline =  createElement("td", todo.deadline);
+    const nameTd = createElement("td", todo.name);
+    const namePerson = createElement("td", todo.person);
+    const nameDeadline = createElement("td", todo.deadline);
+
+    // 削除ボタン
+    const deleteButton = createElement("button", "削除");
+    deleteButton.addEventListener("click", () => deleteTodo(todo.id));
+    const deleteButtonTd = createElement("td");
+    deleteButtonTd.appendChild(deleteButton);
+
     const tr = createElement("tr");
     tr.appendChild(nameTd);
     tr.appendChild(namePerson);
     tr.appendChild(nameDeadline);
+    tr.appendChild(deleteButtonTd);
     const tBody = getElementById("tbody");
     tBody.appendChild(tr);
-  })
-}
+  });
+};
 
 /**
  * DOMのTODO一覧を全て削除する
  */
 export const removeTodoList = () => {
   const tbody = getElementById("tbody");
-  while(tbody.firstChild) {
+  while (tbody.firstChild) {
     tbody.firstChild.remove();
   }
-}
+};

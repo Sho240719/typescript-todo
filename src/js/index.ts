@@ -11,6 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
     todoList = [...todoList, getNewTodo()];
     // TODO一覧を表示する
     removeTodoList();
-    appendTodoList(todoList);
+    appendTodoList(todoList, deleteTodo);
   });
 });
+
+/**
+ * TODOを削除する
+ * @param id
+ */
+const deleteTodo = (id: number) => {
+  todoList = todoList.filter((todo) => todo.id !== id);
+  removeTodoList();
+  appendTodoList(todoList, deleteTodo);
+};
